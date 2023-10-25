@@ -3,8 +3,8 @@ const API_key = "dba92b871b8469679ec9371db91132d6";
 async function showWeather() {
     // let latitude = 15.333;
     // let longitude = 74.0833;
-    let city = "Punjab";
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}`);
+    let city = "Brampton";
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
     console.log("Response ");
     const data = await response.json();
     console.log(data);

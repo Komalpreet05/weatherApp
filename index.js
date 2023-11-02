@@ -7,6 +7,8 @@ const loadingScreen = document.querySelector(".loading-container");
 const userInfoContainer = document.querySelector(".user-info-container");
 const grantAccessBtn = document.querySelector("[data-grantAccess]");
 const searchInput = document.querySelector("[data-searchInput]");
+const errorMsg1 = document.querySelector("[data-errorMsg1]");
+const errorMsg2 = document.querySelector("[data-errorMsg2]");
 
 //initial variables reuqired
 let currentTab = userTab;
@@ -56,6 +58,9 @@ function getFromSessionStorage() {
         fetchUserWeatherInfo(coordinates);
         console.log(coordinates);
     }
+
+    //console.log(localCoordinates.JSON());
+    console.log(JSON.parse(localCoordinates));
 }
 
 async function fetchUserWeatherInfo(coordinates) {
@@ -71,6 +76,9 @@ async function fetchUserWeatherInfo(coordinates) {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}&units=metric`);
         const data = await response.json();
+        if (!data.sys) {
+            throw data;
+        }
         loadingScreen.classList.remove("active");
         userInfoContainer.classList.add("active");
         //calling func to render data values to UI
@@ -78,6 +86,8 @@ async function fetchUserWeatherInfo(coordinates) {
     }
     catch (err) {
         loadingScreen.classList.remove("active");
+        errorMsg2.classList.add("active");
+
         //h.w.
         //console.log("Error" + err);
     }
@@ -148,14 +158,49 @@ async function fetchSearchWeatherInfo(city) {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
         const data = await response.json();
+        if (!data.sys) {
+            throw data;
+        }
+        console.log(!data.sys);
         loadingScreen.classList.remove("active");
         userInfoContainer.classList.add("active");
         renderWeatherInfo(data);
     }
     catch (err) {
 
+        console.log("Error city not found " + err);
+        loadingScreen.classList.remove("active");
+        errorMsg1.classList.add("active");
+
     }
 }
+
+
+//or this way
+
+// async function fetchSearchWeatherInfo(city) {
+//     loadingScreen.classList.add("active");
+//     userInfoContainer.classList.remove("active");
+//     grantAccessContainer.classList.remove("active");
+
+//     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`).then(response => response.json()).then((response) => { renderWeatherInfo(response) }).then(loadingScreen.classList.remove("active")).then(userInfoContainer.classList.add("active")).catch(err => console.error(err)
+//     );
+
+
+// try {
+//     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
+//     const data = await response.json();
+//     loadingScreen.classList.remove("active");
+//     userInfoContainer.classList.add("active");
+//     renderWeatherInfo(data);
+// }
+// catch (err) {
+//     let p = document.createElement('p');
+//     p.textContent = "TESTING";
+//     document.body.appendChild(p);
+//     console.log("Error city not found " + err);
+// }
+//}
 
 
 

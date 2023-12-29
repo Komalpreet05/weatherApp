@@ -28,7 +28,13 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background-image: linear-gradient(160deg, #112d4e 0%, #3f72af 100%);
+  background: url("https://myradar.com/static/background-a089d87ba11e1a4c45a8efa960b86092.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#wrapper::before{
+  
 }
 
 .container {
@@ -45,15 +51,15 @@
   max-width: 550px;
   margin: 0 auto;
   justify-content: space-between;
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .container h1 {
   text-align: center;
-  font-size: 3rem;
-  text-transform: uppercase;
-  color: white;
-  padding-top: 20px;
+  font-size: 2.5rem;
+ 
+  color: #23e9f5;
+  padding-top: 10px;
 }
 
 .tab.current-tab {
@@ -72,7 +78,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-block: 4rem; /*top and bottom margin*/
+  margin-block: 3rem; /*top and bottom margin*/
 }
 .btn {
   all: unset;

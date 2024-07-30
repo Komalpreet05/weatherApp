@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="assets/weather.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="test.css" />
     <title>Weather Application</title>
   </head>
+
   <body>
     <div id="wrapper">
       <div class="container">
@@ -101,8 +103,14 @@
 
           <!---------error display UI-->
           <div class="errorMsg" data-errorMsg1>
-            <h2 id="errCode">404</h2>
-            <p id="errShow">City not found, Please enter a valid city name</p>
+            <!-- <h2 id="errCode">404</h2>
+            <p id="errShow">City not found, Please enter a valid city name</p> -->
+            <img
+              class="errorImg"
+              src="https://cdn.dribbble.com/users/1138875/screenshots/4669703/404_animation.gif"
+              alt=""
+              height="200px"
+            />
           </div>
 
           <div class="errorMsg" data-errorMsg2>

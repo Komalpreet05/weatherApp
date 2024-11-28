@@ -10,9 +10,12 @@ const searchInput = document.querySelector("[data-searchInput]");
 const errorMsg1 = document.querySelector("[data-errorMsg1]");
 const errorMsg2 = document.querySelector("[data-errorMsg2]");
 
+// Load environment variables
+require('dotenv').config();
+
 //initial variables reuqired
 let currentTab = userTab;
-const API_key = "dba92b871b8469679ec9371db91132d6";
+const API_key = process.env.API_KEY;
 currentTab.classList.add("current-tab");
 
 //pending something
@@ -51,6 +54,8 @@ searchTab.addEventListener('click', () => {
 function getFromSessionStorage() {
     const localCoordinates = sessionStorage.getItem("user-coordinate");
     if (!localCoordinates) {
+        errorMsg1.classList.remove("active");
+
         grantAccessContainer.classList.add("active");
     }
     else {
@@ -58,7 +63,7 @@ function getFromSessionStorage() {
         fetchUserWeatherInfo(coordinates);
         console.log(coordinates);
     }
-
+    console.log(localCoordinates);
     //console.log(localCoordinates.JSON());
     console.log(JSON.parse(localCoordinates));
 }
@@ -74,8 +79,12 @@ async function fetchUserWeatherInfo(coordinates) {
 
     //API CALL
     try {
+        errorMsg1.classList.remove("active");
+
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}&units=metric`);
+        console.log(response);
         const data = await response.json();
+        //console.log("Fetched data: " + JSON.stringify(data));
         if (!data.sys) {
             throw data;
         }
@@ -121,7 +130,7 @@ function getLocation() {
         navigator.geolocation.getCurrentPosition(showPosition);
     }
     else {
-        //h.w.  show an alert for no geolocation
+        //show an alert for no geolocation
         alert("No Support available");
     }
 }
@@ -156,6 +165,8 @@ async function fetchSearchWeatherInfo(city) {
     grantAccessContainer.classList.remove("active");
 
     try {
+        errorMsg1.classList.remove("active");
+
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
         const data = await response.json();
         if (!data.sys) {
@@ -167,7 +178,6 @@ async function fetchSearchWeatherInfo(city) {
         renderWeatherInfo(data);
     }
     catch (err) {
-
         console.log("Error city not found " + err);
         loadingScreen.classList.remove("active");
         errorMsg1.classList.add("active");
@@ -201,70 +211,3 @@ async function fetchSearchWeatherInfo(city) {
 //     console.log("Error city not found " + err);
 // }
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log("Komalpreet");
-// const API_key = "dba92b871b8469679ec9371db91132d6";
-// async function showWeather() {
-//     // let latitude = 15.333;
-//     // let longitude = 74.0833;
-//     let city = "Brampton";
-//     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
-//     console.log("Response ");
-//     const data = await response.json();
-//     console.log(data);
-
-//     //let json = JSON.parse(data);
-//     let newPara = document.createElement('p');
-//     newPara.textContent = `${data?.main?.temp.toFixed(2)} c`;
-//     let newPara2 = document.createElement('p');
-//     newPara2.textContent = data["main"].temp;
-//     document.body.appendChild(newPara);
-//     document.body.appendChild(newPara2);
-
-// }
-// showWeather();

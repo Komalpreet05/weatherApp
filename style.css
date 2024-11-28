@@ -308,3 +308,21 @@ span#err {
 .errorMsg.active{
 display: flex;
 }
+
+.errorImg{
+  border-radius: 50%;
+  animation: animateImg 2s infinite alternate;
+  position: relative;
+  /* amimation-direction: alternate; */
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes animateImg {
+  0%{
+    top: 80px;
+  }
+ 
+  100%{
+    top: 0px;
+  }
+}

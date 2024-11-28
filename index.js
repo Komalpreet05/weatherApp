@@ -10,12 +10,9 @@ const searchInput = document.querySelector("[data-searchInput]");
 const errorMsg1 = document.querySelector("[data-errorMsg1]");
 const errorMsg2 = document.querySelector("[data-errorMsg2]");
 
-// Load environment variables
-require('dotenv').config();
-
 //initial variables reuqired
 let currentTab = userTab;
-const API_key = process.env.API_KEY;
+const API_key = "dba92b871b8469679ec9371db91132d6";
 currentTab.classList.add("current-tab");
 
 //pending something
